@@ -3,6 +3,7 @@ import { getAddress } from '@ethersproject/address'
 import { AddressZero } from '@ethersproject/constants'
 import { JsonRpcSigner, Web3Provider } from '@ethersproject/providers'
 import { BigNumber } from '@ethersproject/bignumber'
+import { getPersona } from '@octano/persona'
 import { abi as IUniswapV2Router02ABI } from 'shinobi-v2-periphery/build/IUniswapV2Router02.json'
 import { ROUTER_ADDRESS } from '../constants'
 import { ChainId, JSBI, Percent, Token, CurrencyAmount, Currency, ETHER } from 'shinobi-sdk'
@@ -56,6 +57,14 @@ export function shortenAddress(address: string, chars = 4): string {
   if (!parsed) {
     throw Error(`Invalid 'address' parameter '${address}'.`)
   }
+
+  const usePersona = true // TODO(iquidus): finish this
+
+  if (usePersona) {
+    const { name } = getPersona(address)
+    return `${name.given} ${name.family}`
+  }
+
   return `${parsed.substring(0, chars + 2)}...${parsed.substring(42 - chars)}`
 }
 
