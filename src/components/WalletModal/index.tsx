@@ -5,7 +5,6 @@ import React, { useEffect, useState } from 'react'
 import { isMobile } from 'react-device-detect'
 import ReactGA from 'react-ga'
 import styled from 'styled-components'
-import MetamaskIcon from '../../assets/images/metamask.png'
 import SparrowIcon from '../../assets/images/sparrow.png'
 
 import { ReactComponent as Close } from '../../assets/images/x.svg'
@@ -228,19 +227,7 @@ export default function WalletModal({
       if (option.connector === injected) {
         // don't show injected if there's no injected provider
         if (!(window.web3 || window.ethereum)) {
-          if (option.name === 'MetaMask') {
-            return (
-              <Option
-                id={`connect-${key}`}
-                key={key}
-                color={'#E8831D'}
-                header={'Install Metamask'}
-                subheader={null}
-                link={'https://metamask.io/'}
-                icon={MetamaskIcon}
-              />
-            )
-          } else if (option.name === 'Sparrow') {
+          if (option.name === 'Sparrow') {
             return (
               <Option
                 id={`connect-${key}`}
