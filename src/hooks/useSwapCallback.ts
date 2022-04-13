@@ -214,7 +214,7 @@ export function useSwapCallback(
                 ? base
                 : `${base} to ${
                     recipientAddressOrName && isAddress(recipientAddressOrName)
-                      ? shortenAddress(recipientAddressOrName)
+                      ? shortenAddress(recipientAddressOrName, false)
                       : recipientAddressOrName
                   }`
 

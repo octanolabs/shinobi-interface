@@ -12,6 +12,7 @@ import { AutoRow, RowBetween } from '../Row'
 import { AutoColumn } from '../Column'
 import { AlertTriangle } from 'react-feather'
 import { ButtonError } from '../Button'
+import { usePersonaManager } from '../../state/user/hooks'
 
 const Wrapper = styled.div<{ error: boolean }>`
   background: ${({ theme }) => transparentize(0.6, theme.bg3)};
@@ -44,6 +45,7 @@ function TokenWarningCard({ token }: TokenWarningCardProps) {
   const tokenName = token?.name?.toLowerCase() ?? ''
 
   const allTokens = useAllTokens()
+  const [ usePersona ] = usePersonaManager()
 
   const duplicateNameOrSymbol = useMemo(() => {
     if (!token || !chainId) return false
@@ -74,7 +76,7 @@ function TokenWarningCard({ token }: TokenWarningCardProps) {
           </TYPE.main>
           {chainId && (
             <ExternalLink style={{ fontWeight: 400 }} href={getEtherscanLink(chainId, token.address, 'token')}>
-              <TYPE.blue title={token.address}>{shortenAddress(token.address)} (View on Etherscan)</TYPE.blue>
+              <TYPE.blue title={token.address}>{shortenAddress(token.address, usePersona)} (View on Ubiqscan)</TYPE.blue>
             </ExternalLink>
           )}
         </AutoColumn>

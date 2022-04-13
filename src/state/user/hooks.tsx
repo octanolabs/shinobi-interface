@@ -60,7 +60,7 @@ export function useIsExpertMode(): boolean {
   return useSelector<AppState, AppState['user']['userExpertMode']>(state => state.user.userExpertMode)
 }
 
-export function UseIsPersonaMode(): boolean {
+export function useIsPersonaMode(): boolean {
   return useSelector<AppState, AppState['user']['userPersonaMode']>(state => state.user.userPersonaMode)
 }
 
@@ -77,7 +77,7 @@ export function useExpertModeManager(): [boolean, () => void] {
 
 export function usePersonaManager(): [boolean, () => void] {
   const dispatch = useDispatch<AppDispatch>()
-  const persona = UseIsPersonaMode()
+  const persona = useIsPersonaMode()
 
   const toggleSetPersona = useCallback(() => {
     dispatch(updateUserPersonaMode({ userPersonaMode: !persona }))

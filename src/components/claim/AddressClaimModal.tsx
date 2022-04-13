@@ -19,6 +19,7 @@ import { CardNoise, CardBGImage, CardBGImageSmaller } from '../earn/styled'
 import { useIsTransactionPending } from '../../state/transactions/hooks'
 import { TokenAmount } from 'shinobi-sdk'
 import { getEtherscanLink, shortenAddress } from '../../utils'
+import { usePersonaManager } from '../../state/user/hooks'
 
 const ContentWrapper = styled(AutoColumn)`
   width: 100%;
@@ -69,6 +70,9 @@ export default function AddressClaimModal({ isOpen, onDismiss }: { isOpen: boole
   // monitor the status of the claim from contracts and txns
   const claimPending = useIsTransactionPending(hash ?? '')
   const claimConfirmed = hash && !claimPending
+
+  // get persona setting
+  const [ usePersona ] = usePersonaManager()
 
   // use the hash to monitor this txn
 
@@ -160,7 +164,7 @@ export default function AddressClaimModal({ isOpen, onDismiss }: { isOpen: boole
               )}
               {parsedAddress && (
                 <TYPE.largeHeader fontWeight={600} color="black">
-                  for {shortenAddress(parsedAddress)}
+                  for {shortenAddress(parsedAddress, usePersona)}
                 </TYPE.largeHeader>
               )}
             </AutoColumn>

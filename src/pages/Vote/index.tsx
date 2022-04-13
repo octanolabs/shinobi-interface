@@ -19,6 +19,7 @@ import { JSBI, TokenAmount, ChainId } from 'shinobi-sdk'
 import { shortenAddress, getEtherscanLink } from '../../utils'
 import Loader from '../../components/Loader'
 import FormattedCurrencyAmount from '../../components/FormattedCurrencyAmount'
+import { usePersonaManager } from '../../state/user/hooks'
 
 const PageWrapper = styled(AutoColumn)``
 
@@ -117,6 +118,9 @@ export default function Vote() {
     uniBalance && JSBI.notEqual(uniBalance.raw, JSBI.BigInt(0)) && userDelegatee === ZERO_ADDRESS
   )
 
+  // persona
+  const [ usePersona ] = usePersonaManager()
+
   return (
     <PageWrapper gap="lg" justify="center">
       <DelegateModal
@@ -193,7 +197,7 @@ export default function Vote() {
                     href={getEtherscanLink(ChainId.MAINNET, userDelegatee, 'address')}
                     style={{ margin: '0 4px' }}
                   >
-                    {userDelegatee === account ? 'Self' : shortenAddress(userDelegatee)}
+                    {userDelegatee === account ? 'Self' : shortenAddress(userDelegatee, usePersona)}
                   </StyledExternalLink>
                   <TextButton onClick={() => setShowModal(true)} style={{ marginLeft: '4px' }}>
                     (edit)

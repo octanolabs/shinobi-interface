@@ -12,6 +12,7 @@ import { AutoColumn } from '../Column'
 import CurrencyLogo from '../CurrencyLogo'
 import { RowBetween, RowFixed } from '../Row'
 import { TruncatedText, SwapShowAcceptChanges } from './styleds'
+import { usePersonaManager } from '../../state/user/hooks'
 
 export default function SwapModalHeader({
   trade,
@@ -34,6 +35,7 @@ export default function SwapModalHeader({
   const priceImpactSeverity = warningSeverity(priceImpactWithoutFee)
 
   const theme = useContext(ThemeContext)
+  const [ usePersona ] = usePersonaManager()
 
   return (
     <AutoColumn gap={'md'} style={{ marginTop: '20px' }}>
@@ -119,7 +121,7 @@ export default function SwapModalHeader({
         <AutoColumn justify="flex-start" gap="sm" style={{ padding: '12px 0 0 0px' }}>
           <TYPE.main>
             Output will be sent to{' '}
-            <b title={recipient}>{isAddress(recipient) ? shortenAddress(recipient) : recipient}</b>
+            <b title={recipient}>{isAddress(recipient) ? shortenAddress(recipient, usePersona) : recipient}</b>
           </TYPE.main>
         </AutoColumn>
       ) : null}

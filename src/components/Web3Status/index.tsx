@@ -14,6 +14,7 @@ import { isTransactionRecent, useAllTransactions } from '../../state/transaction
 import { TransactionDetails } from '../../state/transactions/reducer'
 import { shortenAddress } from '../../utils'
 import { ButtonSecondary } from '../Button'
+import { usePersonaManager } from '../../state/user/hooks'
 
 import Identicon from '../Identicon'
 import Loader from '../Loader'
@@ -128,8 +129,10 @@ function Web3StatusInner() {
   const { account, connector, error } = useWeb3React()
 
   const { ENSName } = useENSName(account ?? undefined)
+  const [ usePersona ] = usePersonaManager()
 
   const allTransactions = useAllTransactions()
+
 
   const sortedRecentTransactions = useMemo(() => {
     const txs = Object.values(allTransactions)
@@ -152,7 +155,7 @@ function Web3StatusInner() {
         ) : (
           <>
             {hasSocks ? SOCK : null}
-            <Text>{ENSName || shortenAddress(account)}</Text>
+            <Text>{ENSName || shortenAddress(account, usePersona)}</Text>
           </>
         )}
         {!hasPendingTransactions && connector && <StatusIcon connector={connector} />}

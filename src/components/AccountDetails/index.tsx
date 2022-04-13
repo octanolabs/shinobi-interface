@@ -4,14 +4,14 @@ import styled, { ThemeContext } from 'styled-components'
 import { useActiveWeb3React } from '../../hooks'
 import { AppDispatch } from '../../state'
 import { clearAllTransactions } from '../../state/transactions/actions'
-import { shortenAddress } from '../../utils'
+import { shortenAddress, getEtherscanLink } from '../../utils'
+import { usePersonaManager } from '../../state/user/hooks'
 import { AutoRow } from '../Row'
 import Copy from './Copy'
 import Transaction from './Transaction'
 
 import { SUPPORTED_WALLETS } from '../../constants'
 import { ReactComponent as Close } from '../../assets/images/x.svg'
-import { getEtherscanLink } from '../../utils'
 import { injected } from '../../connectors'
 import Identicon from '../Identicon'
 import { ButtonSecondary } from '../Button'
@@ -220,6 +220,7 @@ export default function AccountDetails({
   const { chainId, account, connector } = useActiveWeb3React()
   const theme = useContext(ThemeContext)
   const dispatch = useDispatch<AppDispatch>()
+  const [ usePersona ] = usePersonaManager()
 
   function formatConnectorName() {
     const { ethereum } = window
@@ -295,7 +296,7 @@ export default function AccountDetails({
                     <>
                       <div>
                         {getStatusIcon()}
-                        <p> {account && shortenAddress(account)}</p>
+                        <p> {account && shortenAddress(account, usePersona)}</p>
                       </div>
                     </>
                   )}
