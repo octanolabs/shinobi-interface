@@ -16,6 +16,7 @@ import {
   updateUserDarkMode,
   updateUserDeadline,
   updateUserExpertMode,
+  updateUserPersonaMode,
   updateUserSlippageTolerance,
   toggleURLWarning
 } from './actions'
@@ -59,6 +60,10 @@ export function useIsExpertMode(): boolean {
   return useSelector<AppState, AppState['user']['userExpertMode']>(state => state.user.userExpertMode)
 }
 
+export function UseIsPersonaMode(): boolean {
+  return useSelector<AppState, AppState['user']['userPersonaMode']>(state => state.user.userPersonaMode)
+}
+
 export function useExpertModeManager(): [boolean, () => void] {
   const dispatch = useDispatch<AppDispatch>()
   const expertMode = useIsExpertMode()
@@ -68,6 +73,17 @@ export function useExpertModeManager(): [boolean, () => void] {
   }, [expertMode, dispatch])
 
   return [expertMode, toggleSetExpertMode]
+}
+
+export function usePersonaManager(): [boolean, () => void] {
+  const dispatch = useDispatch<AppDispatch>()
+  const persona = UseIsPersonaMode()
+
+  const toggleSetPersona = useCallback(() => {
+    dispatch(updateUserPersonaMode({ userPersonaMode: !persona }))
+  }, [persona, dispatch])
+
+  return [persona, toggleSetPersona]
 }
 
 export function useUserSlippageTolerance(): [number, (slippage: number) => void] {

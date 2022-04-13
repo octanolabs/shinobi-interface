@@ -7,6 +7,7 @@ import { ApplicationModal } from '../../state/application/actions'
 import { useModalOpen, useToggleSettingsMenu } from '../../state/application/hooks'
 import {
   useExpertModeManager,
+  usePersonaManager,
   useUserTransactionTTL,
   useUserSlippageTolerance
 } from '../../state/user/hooks'
@@ -133,6 +134,7 @@ export default function SettingsTab() {
   const [ttl, setTtl] = useUserTransactionTTL()
 
   const [expertMode, toggleExpertMode] = useExpertModeManager()
+  const [personaMode, togglePersonaMode] = usePersonaManager()
 
   // show confirmation view before turning on
   const [showConfirmation, setShowConfirmation] = useState(false)
@@ -204,6 +206,19 @@ export default function SettingsTab() {
             <Text fontWeight={600} fontSize={14}>
               Interface Settings
             </Text>
+            <RowBetween>
+              <RowFixed>
+                <TYPE.black fontWeight={400} fontSize={14} color={theme.text2}>
+                  Toggle Persona
+                </TYPE.black>
+                <QuestionHelper text="Uses human-friendly names to represent addresses" />
+              </RowFixed>
+              <Toggle
+                id="toggle-persona-mode-button"
+                isActive={personaMode}
+                toggle={() => { togglePersonaMode(); setShowConfirmation(false) }}
+              />
+            </RowBetween>
             <RowBetween>
               <RowFixed>
                 <TYPE.black fontWeight={400} fontSize={14} color={theme.text2}>

@@ -8,6 +8,7 @@ import { abi as IUniswapV2Router02ABI } from 'shinobi-v2-periphery/build/IUniswa
 import { ROUTER_ADDRESS } from '../constants'
 import { ChainId, JSBI, Percent, Token, CurrencyAmount, Currency, ETHER } from 'shinobi-sdk'
 import { TokenAddressMap } from '../state/lists/hooks'
+import { UseIsPersonaMode } from '../state/user/hooks'
 
 // returns the checksummed address if the address is valid, otherwise returns false
 export function isAddress(value: any): string | false {
@@ -58,7 +59,7 @@ export function shortenAddress(address: string, chars = 4): string {
     throw Error(`Invalid 'address' parameter '${address}'.`)
   }
 
-  const usePersona = true // TODO(iquidus): finish this
+  const usePersona = UseIsPersonaMode()
 
   if (usePersona) {
     const { name } = getPersona(address)

@@ -11,6 +11,7 @@ import {
   updateMatchesDarkMode,
   updateUserDarkMode,
   updateUserExpertMode,
+  updateUserPersonaMode,
   updateUserSlippageTolerance,
   updateUserDeadline,
   toggleURLWarning
@@ -26,6 +27,9 @@ export interface UserState {
   matchesDarkMode: boolean // whether the dark mode media query matches
 
   userExpertMode: boolean
+
+  // Persona
+  userPersonaMode: boolean
 
   // user defined slippage tolerance in bips, used in all txns
   userSlippageTolerance: number
@@ -58,6 +62,7 @@ export const initialState: UserState = {
   userDarkMode: null,
   matchesDarkMode: false,
   userExpertMode: false,
+  userPersonaMode: true,
   userSlippageTolerance: INITIAL_ALLOWED_SLIPPAGE,
   userDeadline: DEFAULT_DEADLINE_FROM_NOW,
   tokens: {},
@@ -93,6 +98,10 @@ export default createReducer(initialState, builder =>
     })
     .addCase(updateUserExpertMode, (state, action) => {
       state.userExpertMode = action.payload.userExpertMode
+      state.timestamp = currentTimestamp()
+    })
+    .addCase(updateUserPersonaMode, (state, action) => {
+      state.userPersonaMode = action.payload.userPersonaMode
       state.timestamp = currentTimestamp()
     })
     .addCase(updateUserSlippageTolerance, (state, action) => {
