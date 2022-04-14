@@ -38,3 +38,7 @@ declare module '@octano/persona' {
     zodiac: string
   }
 }
+
+declare module '@download/blockies' {
+  declare function createIcon(options: { seed: string; size: number; scale: number })
+}

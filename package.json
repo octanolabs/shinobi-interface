@@ -119,6 +119,7 @@
   },
   "license": "GPL-3.0-or-later",
   "dependencies": {
+    "@download/blockies": "^1.0.3",
     "@octano/persona": "^1.4.0"
   }
 }
