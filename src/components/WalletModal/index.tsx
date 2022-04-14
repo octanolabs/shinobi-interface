@@ -199,6 +199,7 @@ export default function WalletModal({
   function getOptions() {
     const isMetamask = window.ethereum && window.ethereum.isMetaMask
     const isSparrow = window.ethereum && window.ethereum.isSparrow
+    const isWalletLink = window.ethereum && window.ethereum.isWalletLink
     return Object.keys(SUPPORTED_WALLETS).map(key => {
       const option = SUPPORTED_WALLETS[key]
       // check for mobile options
@@ -259,6 +260,10 @@ export default function WalletModal({
         else if (option.name === 'Injected' && isSparrow) {
           return null
         }
+        // likewise for generic
+        else if (option.name === 'Injected' && isWalletLink) {
+          return null
+        } 
       }
 
       // return rest of options
@@ -287,6 +292,8 @@ export default function WalletModal({
 
   function getModalContent() {
     const isMetamask = window.ethereum && window.ethereum.isMetaMask
+    const isWalletLink = window.ethereum && window.ethereum.isWalletLink
+    const isSparrow = window.ethereum && window.ethereum.isSparrow
     if (error) {
       return (
         <UpperSection>
@@ -347,16 +354,22 @@ export default function WalletModal({
           ) : (
             <OptionGrid>{getOptions()}</OptionGrid>
           )}
-          {walletView !== WALLET_VIEWS.PENDING && isMetamask && (
+          {walletView !== WALLET_VIEWS.PENDING && isMetamask && !isSparrow && (
             <Blurb>
               <span>New to Ubiq? &nbsp;</span>{' '}
-              <ExternalLink href="https://blog.ubiqsmart.com/adding-ubiq-to-metamask-96ae40aa95cf">Learn how to add Ubiq to MetaMask</ExternalLink>
+              <ExternalLink href="https://ubiq.ninja/en/wallets/metamask">Learn how to add Ubiq to MetaMask</ExternalLink>
             </Blurb>
           )}
-          {walletView !== WALLET_VIEWS.PENDING && !isMetamask && (
+          {walletView !== WALLET_VIEWS.PENDING && isSparrow && (
             <Blurb>
               <span>New to Ubiq? &nbsp;</span>{' '}
               <ExternalLink href="https://ubiq.ninja/en/wallets/sparrow">Learn how to use Sparrow</ExternalLink>
+            </Blurb>
+          )}
+          {walletView !== WALLET_VIEWS.PENDING && isWalletLink && (
+            <Blurb>
+              <span>New to Ubiq? &nbsp;</span>{' '}
+              <ExternalLink href="https://ubiq.ninja/en/wallets/coinbase">Learn how to add Ubiq to Coinbase Wallet</ExternalLink>
             </Blurb>
           )}
         </ContentWrapper>

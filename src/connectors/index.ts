@@ -1,6 +1,8 @@
 import { Web3Provider } from '@ethersproject/providers'
 import { InjectedConnector } from '@web3-react/injected-connector'
+import { WalletLinkConnector } from '@web3-react/walletlink-connector'
 import { NetworkConnector } from './NetworkConnector'
+import SHINOBI_LOGO_URL from '../assets/svg/logo.svg'
 
 const NETWORK_URL = process.env.REACT_APP_NETWORK_URL
 
@@ -21,4 +23,11 @@ export function getNetworkLibrary(): Web3Provider {
 
 export const injected = new InjectedConnector({
   supportedChainIds: [8]
+})
+
+export const walletlink = new WalletLinkConnector({
+  url: 'https://rpc.octano.dev',
+  appName: 'Shinobi',
+  appLogoUrl: SHINOBI_LOGO_URL,
+  supportedChainIds: [8],
 })

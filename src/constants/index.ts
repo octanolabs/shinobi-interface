@@ -2,7 +2,7 @@ import { ChainId, JSBI, Percent, Token, WETH } from 'shinobi-sdk'
 import { AbstractConnector } from '@web3-react/abstract-connector'
 
 // import { fortmatic, injected, portis, walletconnect, walletlink } from '../connectors'
-import { injected } from '../connectors'
+import { injected, walletlink } from '../connectors'
 
 export const ROUTER_ADDRESS = '0xf3ce4655a44146c8eefbf45651f6479f9d67a77a'
 
@@ -135,7 +135,15 @@ export const SUPPORTED_WALLETS: { [key: string]: WalletInfo } = {
     description: 'Easy-to-use ethereum browser extension.',
     href: null,
     color: '#E8831D'
-  }
+  },
+  WALLET_LINK: {
+    connector: walletlink,
+    name: 'Coinbase Wallet',
+    iconName: 'coinbaseWalletIcon.svg',
+    description: 'A self-custody crypto wallet',
+    href: null,
+    color: '#315CF5'
+  },
   /*
   WALLET_CONNECT: {
     connector: walletconnect,
@@ -145,14 +153,6 @@ export const SUPPORTED_WALLETS: { [key: string]: WalletInfo } = {
     href: null,
     color: '#4196FC',
     mobile: true
-  },
-  WALLET_LINK: {
-    connector: walletlink,
-    name: 'Coinbase Wallet',
-    iconName: 'coinbaseWalletIcon.svg',
-    description: 'Use Coinbase Wallet app on mobile device',
-    href: null,
-    color: '#315CF5'
   },
   COINBASE_LINK: {
     name: 'Open in Coinbase Wallet',

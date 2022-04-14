@@ -10,6 +10,7 @@ interface Window {
   ethereum?: {
     isMetaMask?: true
     isSparrow?: true
+    isWalletLink?: true
     on?: (...args: any[]) => void
     removeListener?: (...args: any[]) => void
   }
