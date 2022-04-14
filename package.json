@@ -1,7 +1,7 @@
 {
   "name": "shinobi-interface",
   "description": "Shinobi Interface",
-  "homepage": ".",
+  "homepage": "https://shinobi.ubiq.ninja",
   "private": true,
   "devDependencies": {
     "@ethersproject/experimental": "^5.0.1",
