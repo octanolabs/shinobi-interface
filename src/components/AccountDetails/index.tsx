@@ -226,10 +226,11 @@ export default function AccountDetails({
     const { ethereum } = window
     const isMetaMask = !!(ethereum && ethereum.isMetaMask)
     const isSparrow = !!(ethereum && ethereum.isSparrow)
+    const isWalletLink = !!(ethereum && ethereum.isWalletLink)
     const name = Object.keys(SUPPORTED_WALLETS)
       .filter(
         k =>
-          SUPPORTED_WALLETS[k].connector === connector && (connector !== injected || isMetaMask === (k === 'METAMASK') || isSparrow === (k === 'SPARROW'))
+          SUPPORTED_WALLETS[k].connector === connector && (connector !== injected || isMetaMask === (k === 'METAMASK') || isSparrow === (k === 'SPARROW') || isWalletLink === (k === 'WALLET_LINK'))
       )
       .map(k => SUPPORTED_WALLETS[k].name)[0]
     return <WalletName>Connected with {name}</WalletName>

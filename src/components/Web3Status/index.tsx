@@ -5,7 +5,7 @@ import React, { useMemo } from 'react'
 import { Activity } from 'react-feather'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
-import { injected } from '../../connectors'
+import { injected, walletlink } from '../../connectors'
 import { NetworkContextName } from '../../constants'
 import useENSName from '../../hooks/useENSName'
 import { useHasSocks } from '../../hooks/useSocksBalance'
@@ -118,7 +118,7 @@ const SOCK = (
 
 // eslint-disable-next-line react/prop-types
 function StatusIcon({ connector }: { connector: AbstractConnector }) {
-  if (connector === injected) {
+  if (connector === injected || connector === walletlink) {
     return <Identicon />
   }
   return null
