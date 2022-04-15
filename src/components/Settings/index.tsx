@@ -19,6 +19,7 @@ import Modal from '../Modal'
 import QuestionHelper from '../QuestionHelper'
 import { RowBetween, RowFixed } from '../Row'
 import Toggle from '../Toggle'
+import ToggleIdenticon from '../ToggleIdenticon'
 import TransactionSettings from '../TransactionSettings'
 
 const StyledMenuIcon = styled(Settings)`
@@ -211,11 +212,11 @@ export default function SettingsTab() {
             <RowBetween>
               <RowFixed>
                 <TYPE.black fontWeight={400} fontSize={14} color={theme.text2}>
-                  Toggle Blockies
+                  Toggle Identicon
                 </TYPE.black>
-                <QuestionHelper text="Use blockies, otherwise JazzIcons" />
+                <QuestionHelper text="Blockies or JazzIcons?" />
               </RowFixed>
-              <Toggle
+              <ToggleIdenticon
                 id="toggle-blockies-mode-button"
                 isActive={blockiesMode}
                 toggle={() => { toggleBlockiesMode(); setShowConfirmation(false) }}
