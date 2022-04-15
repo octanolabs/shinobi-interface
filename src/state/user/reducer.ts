@@ -12,6 +12,7 @@ import {
   updateUserDarkMode,
   updateUserExpertMode,
   updateUserPersonaMode,
+  updateUserBlockiesMode,
   updateUserSlippageTolerance,
   updateUserDeadline,
   toggleURLWarning
@@ -30,6 +31,8 @@ export interface UserState {
 
   // Persona
   userPersonaMode: boolean
+  // Blockies
+  userBlockiesMode: boolean
 
   // user defined slippage tolerance in bips, used in all txns
   userSlippageTolerance: number
@@ -63,6 +66,7 @@ export const initialState: UserState = {
   matchesDarkMode: false,
   userExpertMode: false,
   userPersonaMode: true,
+  userBlockiesMode: true,
   userSlippageTolerance: INITIAL_ALLOWED_SLIPPAGE,
   userDeadline: DEFAULT_DEADLINE_FROM_NOW,
   tokens: {},
@@ -102,6 +106,10 @@ export default createReducer(initialState, builder =>
     })
     .addCase(updateUserPersonaMode, (state, action) => {
       state.userPersonaMode = action.payload.userPersonaMode
+      state.timestamp = currentTimestamp()
+    })
+    .addCase(updateUserBlockiesMode, (state, action) => {
+      state.userBlockiesMode = action.payload.userBlockiesMode
       state.timestamp = currentTimestamp()
     })
     .addCase(updateUserSlippageTolerance, (state, action) => {

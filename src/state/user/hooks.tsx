@@ -17,6 +17,7 @@ import {
   updateUserDeadline,
   updateUserExpertMode,
   updateUserPersonaMode,
+  updateUserBlockiesMode,
   updateUserSlippageTolerance,
   toggleURLWarning
 } from './actions'
@@ -64,6 +65,10 @@ export function useIsPersonaMode(): boolean {
   return useSelector<AppState, AppState['user']['userPersonaMode']>(state => state.user.userPersonaMode)
 }
 
+export function useIsBlockiesMode(): boolean {
+  return useSelector<AppState, AppState['user']['userBlockiesMode']>(state => state.user.userBlockiesMode)
+}
+
 export function useExpertModeManager(): [boolean, () => void] {
   const dispatch = useDispatch<AppDispatch>()
   const expertMode = useIsExpertMode()
@@ -84,6 +89,17 @@ export function usePersonaManager(): [boolean, () => void] {
   }, [persona, dispatch])
 
   return [persona, toggleSetPersona]
+}
+
+export function useBlockiesManager(): [boolean, () => void] {
+  const dispatch = useDispatch<AppDispatch>()
+  const blockies = useIsBlockiesMode()
+
+  const toggleSetBlockies = useCallback(() => {
+    dispatch(updateUserBlockiesMode({ userBlockiesMode: !blockies }))
+  }, [blockies, dispatch])
+
+  return [blockies, toggleSetBlockies]
 }
 
 export function useUserSlippageTolerance(): [number, (slippage: number) => void] {

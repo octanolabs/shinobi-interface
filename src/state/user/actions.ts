@@ -17,6 +17,7 @@ export const updateMatchesDarkMode = createAction<{ matchesDarkMode: boolean }>(
 export const updateUserDarkMode = createAction<{ userDarkMode: boolean }>('user/updateUserDarkMode')
 export const updateUserExpertMode = createAction<{ userExpertMode: boolean }>('user/updateUserExpertMode')
 export const updateUserPersonaMode = createAction<{ userPersonaMode: boolean }>('user/updateUserPersonaMode')
+export const updateUserBlockiesMode = createAction<{ userBlockiesMode: boolean }>('user/updateUserBlockiesMode')
 export const updateUserSlippageTolerance = createAction<{ userSlippageTolerance: number }>(
   'user/updateUserSlippageTolerance'
 )

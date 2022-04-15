@@ -3,7 +3,9 @@ import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 
 import { useActiveWeb3React } from '../../hooks'
-// import Jazzicon from 'jazzicon'
+import { useBlockiesManager } from '../../state/user/hooks'
+
+import Jazzicon from 'jazzicon'
 import { createIcon } from '@download/blockies'
 
 const StyledIdenticonContainer = styled.div`
@@ -18,14 +20,18 @@ export default function Identicon() {
   const ref = useRef<HTMLDivElement>()
 
   const { account } = useActiveWeb3React()
-
+  const [ useBlockies ] = useBlockiesManager()
   useEffect(() => {
     if (account && ref.current) {
       ref.current.innerHTML = ''
-      // ref.current.appendChild(Jazzicon(18, parseInt(account.slice(2, 10), 16)))
-      ref.current.appendChild(createIcon({seed: account.toLowerCase(), size: 6, scale: 3}))
+      if (useBlockies) {
+        ref.current.appendChild(createIcon({seed: account.toLowerCase(), size: 6, scale: 3}))
+      } else {
+        ref.current.appendChild(Jazzicon(18, parseInt(account.slice(2, 10), 16)))
+      }
+      
     }
-  }, [account])
+  }, [account, useBlockies])
 
   // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/30451
   return <StyledIdenticonContainer ref={ref as any} />
